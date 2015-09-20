@@ -6,7 +6,6 @@ import Interfaces.ServerInterface;
 
 /**
  * This class facilitates communication from the checkers client to the server.
- *
  * Client messages are received here and then passed to the ServerInterface
  * module where the message is translated into a TCP message the server can
  * understand. That message is then sent across the network.

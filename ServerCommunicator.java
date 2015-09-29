@@ -1,8 +1,9 @@
 import java.io.*;
 import java.net.*;
 
-import Interfaces.CheckersClient;
+import Interfaces.CheckersClientInterface;
 import Interfaces.ServerInterface;
+
 
 /**
  * This class facilitates communication from the checkers client to the server.
@@ -21,15 +22,15 @@ public class ServerCommunicator implements ServerInterface {
 
 	private String userName;
 
-	private CheckersClient client;
+	private CheckersClientInterface client;
 	private ServerConnection serverCon;
 
 	private TCPListenerThread listener;
 
-  /* c is an object implementing CheckersClient. It should be an object
+  /* c is an object implementing CheckersClientInterface. It should be an object
 		from your project able to receive all of the TCP messages sent by
 		the server. */
-	public ServerCommunicator(CheckersClient c){
+	public ServerCommunicator(CheckersClientInterface c){
 		socket = null;
 		streamFromServer = null;
 		streamToServer = null;
@@ -39,6 +40,8 @@ public class ServerCommunicator implements ServerInterface {
 		listener = null;
 	}
 
+    @Override
+    @SuppressWarnings("empty-statement")
 	public boolean connectToServer(String ip, String userName) {
 		  try {
 	      	socket = new Socket(ip, 45322);
@@ -55,7 +58,7 @@ public class ServerCommunicator implements ServerInterface {
 				//finally send the requested user name to the server.
 				streamToServer.write(userName.getBytes());
 				return true;
-			}
+			
 	        } catch (UnknownHostException e) {
 	            System.out.println("Don't know about host: "+ip);
 	            System.out.println(e.getMessage());
@@ -68,8 +71,10 @@ public class ServerCommunicator implements ServerInterface {
 	        	System.out.println(e.getMessage());
 	        	return false;
 	        }
-	}
+        }
 
+    
+	
 	public void killListenThread() throws IOException{
 		if(listener != null){
 			listener.active = false;
@@ -79,6 +84,7 @@ public class ServerCommunicator implements ServerInterface {
 		}
 	}
 
+    @Override
 	public void disconnect(boolean endProcess) {
 		serverCon.disconnect(userName);
 		if(endProcess){
@@ -111,43 +117,53 @@ public class ServerCommunicator implements ServerInterface {
 		serverCon.playerReady(userName);
 	}
 
+    @Override
 	public void sendMsg(String to, String msg) {
 		serverCon.msgPlayer(userName, to, msg);
 	}
 
+    @Override
 	public void sendMsg_All(String msg) {
 		serverCon.msgAll(userName, msg);
 	}
 
 	/** Game playing methods **/
+    @Override
 	public void getTblStatus(String user, int tid) {
 		serverCon.getTblStatus(user, tid);
 	}
 
+    @Override
 	public void joinTable(String user, int tid) {
 		serverCon.joinTable(user, tid);
 	}
 
+    @Override
 	public void leaveTable(String user) {
 		serverCon.leaveTable(user);
 	}
 
+    @Override
 	public void makeTable(String user) {
 		serverCon.makeTable(user);
 	}
 
+    @Override
 	public void move(String user, int fr, int fc, int tr, int tc) {
 		serverCon.move(user, fr, fc, tr, tc);
 	}
 
+    @Override
 	public void playerReady(String user) {
 		serverCon.playerReady(user);
 	}
 
+    @Override
 	public void observeTable(String user, int tid) {
 		serverCon.observeTable(user, tid);
 	}
 
+    @Override
 	public void stopObserving(String user, int tid) {
 		serverCon.stopObserving(user, tid);
 

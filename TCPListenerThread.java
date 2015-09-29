@@ -2,7 +2,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Interfaces.CheckersClient;
+import Interfaces.CheckersClientInterface;
 import Interfaces.TCPMsg;
 
 
@@ -15,11 +15,11 @@ import Interfaces.TCPMsg;
 public class TCPListenerThread extends Thread {
 
 	private ServerCommunicator communicator;
-	private CheckersClient client;
+	private CheckersClientInterface client;
 	private DataInputStream fromServerStream;
 	public boolean active;
 
-	public TCPListenerThread(ServerCommunicator c, CheckersClient cl, DataInputStream serverStream){
+	public TCPListenerThread(ServerCommunicator c, CheckersClientInterface cl, DataInputStream serverStream){
 		super("TCP Message Listener");
 		communicator = c;
 		client = cl;

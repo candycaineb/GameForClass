@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class CheckersClient implements CheckersClientInterface{
     private ServerCommunicator _serverCommunication;
     public String _username;
-    private ArrayList<String> _users = new ArrayList<>();
+    private ArrayList<String> _users = new ArrayList<String>();
     private static MainMenu _menu = new MainMenu();
     
     CheckersClient(String uname){

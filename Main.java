@@ -16,8 +16,8 @@ public class Main {
     
     public static void main(String[] args) { 
        _checkersClient = new CheckersClient("Caine");
-        SetupClient();
-     ////CREATE GUI
+       SetupClient();
+        //CREATE GUI
         CheckerBoard board = new CheckerBoard();
         _checkersClient.AddActionListeners();
     }

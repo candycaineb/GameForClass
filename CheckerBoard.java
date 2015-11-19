@@ -2,6 +2,7 @@
  * Created by benwinks on 11/18/15.
  */
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -27,15 +28,13 @@ public class CheckerBoard extends JPanel {
         checkerBoardHeight = 800;
         checkerBoardWidth = 800;
         boardContainer.setSize(new Dimension(checkerBoardWidth, checkerBoardHeight));
-        overLordContainer.setSize(new Dimension(800, 800));
-        gameFrame.setSize(new Dimension((800), (800)));
+        overLordContainer.setSize(new Dimension(1000, 1000));
+        gameFrame.setSize(new Dimension((1000), (1000)));
         gameTiles = new JPanel[numberOfSquaresInRow][numberOfSquaresInRow];
         this.setSize(checkerBoardHeight, checkerBoardWidth);
         GridLayout boardLayout = new GridLayout(numberOfSquaresInRow, numberOfSquaresInRow);
         FlowLayout messageBoxLayout = new FlowLayout();
         BorderLayout overLordLayout = new BorderLayout();
-        //GridBagConstraints constraints = new GridBagConstraints();
-        //constraints.fill = GridBagConstraints.HORIZONTAL;
         overLordContainer.setLayout(overLordLayout);
         boardContainer.setLayout(boardLayout);
         messageContainer.setLayout(messageBoxLayout);
@@ -94,6 +93,7 @@ public class CheckerBoard extends JPanel {
             }
         }
         boardContainer.setMinimumSize(new Dimension(checkerBoardWidth, checkerBoardHeight));
+        boardContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         messageContainer.add(messageLabel);
         messageContainer.add(messageBox);
         messageContainer.add(sendChatButton);

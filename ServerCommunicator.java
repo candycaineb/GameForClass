@@ -44,6 +44,7 @@ public class ServerCommunicator implements ServerInterface {
     @SuppressWarnings("empty-statement")
 	public boolean connectToServer(String ip, String userName) {
 		  try {
+                this.userName = userName;
 	      	socket = new Socket(ip, 45322);
 	        lnOut("Connected to server!");;
 	        streamFromServer = new DataInputStream(socket.getInputStream());

@@ -1,6 +1,4 @@
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /*
  * To change this template, choose Tools | Templates
@@ -20,6 +18,7 @@ public class Main {
        _checkersClient = new CheckersClient("Caine");
         SetupClient();
      ////CREATE GUI
+        CheckerBoard board = new CheckerBoard();
         _checkersClient.AddActionListeners();
     }
     public static void SetupClient()

@@ -15,7 +15,7 @@ public class CheckerBoard extends JPanel {
     private JTextField messageBox = new JTextField();
     private JButton sendChatButton = new JButton("Send");
     private JLabel messageLabel = new JLabel("Message:");
-    private JTextArea observerArea = new JTextArea();
+    private JTextArea observerArea = new JTextArea("Observers Pane");
     private final int numberOfSquaresInRow = 8;
     private JPanel[][] gameTiles;
     private int checkerBoardHeight, checkerBoardWidth;
@@ -27,12 +27,15 @@ public class CheckerBoard extends JPanel {
         checkerBoardHeight = 800;
         checkerBoardWidth = 800;
         boardContainer.setSize(new Dimension(checkerBoardWidth, checkerBoardHeight));
-        gameFrame.setSize(new Dimension((checkerBoardHeight), (checkerBoardWidth)));
+        overLordContainer.setSize(new Dimension(800, 800));
+        gameFrame.setSize(new Dimension((800), (800)));
         gameTiles = new JPanel[numberOfSquaresInRow][numberOfSquaresInRow];
         this.setSize(checkerBoardHeight, checkerBoardWidth);
         GridLayout boardLayout = new GridLayout(numberOfSquaresInRow, numberOfSquaresInRow);
         FlowLayout messageBoxLayout = new FlowLayout();
-        GridBagLayout overLordLayout = new GridBagLayout();
+        BorderLayout overLordLayout = new BorderLayout();
+        //GridBagConstraints constraints = new GridBagConstraints();
+        //constraints.fill = GridBagConstraints.HORIZONTAL;
         overLordContainer.setLayout(overLordLayout);
         boardContainer.setLayout(boardLayout);
         messageContainer.setLayout(messageBoxLayout);
@@ -90,14 +93,14 @@ public class CheckerBoard extends JPanel {
                 boardContainer.add(boardTile);
             }
         }
-        observerArea.append("Boo!");
+        boardContainer.setMinimumSize(new Dimension(checkerBoardWidth, checkerBoardHeight));
         messageContainer.add(messageLabel);
         messageContainer.add(messageBox);
         messageContainer.add(sendChatButton);
         observerContainer.add(observerArea);
-        overLordContainer.add(boardContainer);
-        overLordContainer.add(messageContainer);
-        overLordContainer.add(observerArea);
+        overLordContainer.add(boardContainer, BorderLayout.CENTER);
+        overLordContainer.add(messageContainer, BorderLayout.SOUTH);
+        overLordContainer.add(observerArea, BorderLayout.EAST);
         gameFrame.add(overLordContainer);
         gameFrame.setVisible(true);
 

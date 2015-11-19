@@ -9,9 +9,11 @@
  */
 public class Main {
     private static CheckersClient _checkersClient;
-    public static void main(String[] args) { 
-       _checkersClient = new CheckersClient();
-        SetupClient();
+    public static void main(String[] args) {
+        CheckerBoard board = new CheckerBoard();
+      //  System.out.println("Hey");
+     //  _checkersClient = new CheckersClient();
+     //   SetupClient();
      
     }
     public static void SetupClient()

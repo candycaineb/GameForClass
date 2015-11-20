@@ -19,7 +19,7 @@ public class Main {
        SetupClient();
         //CREATE GUI
         CheckerBoard board = new CheckerBoard();
-        _checkersClient.AddActionListeners();
+       _checkersClient.AddActionListeners();
     }
     public static void SetupClient()
     {

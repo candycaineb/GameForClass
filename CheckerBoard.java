@@ -6,6 +6,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 
 public class CheckerBoard extends JPanel {
     private JFrame gameFrame = new JFrame();
@@ -24,6 +25,12 @@ public class CheckerBoard extends JPanel {
     private int checkerBoardHeight, checkerBoardWidth;
     private static Color black = new Color(0, 0, 0);
     private static Color red = new Color(255, 0, 0);
+    private ImageIcon redPiece = new ImageIcon("Images/redPiece.png");
+    private ImageIcon blackPiece = new ImageIcon("Images/blackPiece.png");
+    private ImageIcon redKing = new ImageIcon("Images/redKing.png");
+    private ImageIcon blackKing = new ImageIcon("Images/blackKing.png");
+
+
 
 
     public CheckerBoard() {
@@ -54,14 +61,38 @@ public class CheckerBoard extends JPanel {
             for (int columnIndex = 0; columnIndex < numberOfSquaresInRow; columnIndex++) {
                 final int row = rowIndex;
                 final int column = columnIndex;
+                JPanel boardTile = new JPanel();
+                JLabel piece = null;
                 if ((rowIndex + columnIndex) % 2 == 1) {
+
                     tileColor = black;
                 }
                 else {
                     tileColor = red;
                 }
 
-                JPanel boardTile = new JPanel();
+                if (rowIndex % 2 == 0 && columnIndex % 2 == 1 && rowIndex < 3) {
+
+                    piece = new JLabel("", blackPiece, JLabel.CENTER);
+                    piece.setSize(boardTile.getWidth(), boardTile.getHeight());
+                    boardTile.add(piece);
+                }
+
+                else if (rowIndex % 2 == 1 && columnIndex % 2 == 0 && rowIndex < 3) {
+                    piece = new JLabel("", blackPiece, JLabel.CENTER);
+                    boardTile.add(piece);
+                }
+
+                else if (rowIndex % 2 == 0 && columnIndex % 2 == 1 && rowIndex > 4) {
+                    piece = new JLabel("", redPiece, JLabel.CENTER);
+                    boardTile.add(piece);
+                }
+
+                else if (rowIndex % 2 == 1 && columnIndex % 2 == 0 && rowIndex > 4) {
+                    piece = new JLabel("", redPiece, JLabel.CENTER);
+                    boardTile.add(piece);
+                }
+
                 boardTile.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent mouseEvent) {
@@ -110,9 +141,8 @@ public class CheckerBoard extends JPanel {
         //gameFrame.pack();
         gameFrame.setVisible(true);
 
-
-
-
     }
+
+
 
 }

@@ -18,10 +18,12 @@ public class Main {
     public static void main(String[] args) { 
         _menu.CreateMainMenu();
        _checkersClient = new CheckersClient("Caine");
+
        CC.SetClient(_checkersClient);
         SetupClient();
      ////CREATE GUI
        // CheckerBoard board = new CheckerBoard();
+
     }
     public static void SetupClient()
     {

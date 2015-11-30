@@ -37,7 +37,7 @@ public class MainScreen extends javax.swing.JFrame {
         tableList.clear();
       //  System.out.println("HMM");
         for (int t=0; t<CheckersController.tableList.size(); t++){ 
-            //System.out.println("HEYYY");
+            
             tableList.addElement(CheckersController.tableList.get(t));
         }
     }

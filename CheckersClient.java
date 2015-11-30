@@ -18,22 +18,13 @@ public class CheckersClient implements CheckersClientInterface{
     private ServerCommunicator _serverCommunication;
     public String _username;
     private ArrayList<String> _users = new ArrayList<>();
-    private static MainMenu _menu = new MainMenu();
+    private static CheckersController CC = new CheckersController();
     
     CheckersClient(String uname){
         _username = uname;
         _serverCommunication = new ServerCommunicator(this);
     }
     
-    public void AddActionListeners(){
-        
-        _menu.PublicMsgbtn.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e) {
-                   String msg = _menu.GetMsgField();
-                   _menu.ConcatPulicChat(_username, "\"" + msg + "\"");
-                }
-             });
-    }
     
     @Override
     public void connectionOK() {
@@ -54,9 +45,14 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void newMsg(String user, String msg, boolean pm) {
+        if (!pm){
+          _serverCommunication.sendMsg_All(msg);//if pm = false
+        }
+        else{//Private Msg
+            
+        }
         
-        /////Going to have to modify the msg action listener some to get this to work with it
-        throw new UnsupportedOperationException("Not supported yet.");
+       // throw new UnsupportedOperationException("Not supported yet.");
         
     }
 
@@ -65,15 +61,15 @@ public class CheckersClient implements CheckersClientInterface{
         System.out.println("The current users in the lobby: ");
         _users.removeAll(_users);
         for( int t = 0; t < users.length; t++){
-            _menu.ConcatPulicChat(users[t], "Has now entered the lobby");
-            _users.add(users[t]);
+           CC.AddClient(users[t]);
+           
         }
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void nowJoinedLobby(String user) {///////////////////////////////////////////////
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+        CC.AddClient(user);
     }
 
     @Override
@@ -83,8 +79,10 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void newTable(int tid) {///////////////////////////////////////////////
-        _serverCommunication.makeTable(_username);
-        throw new UnsupportedOperationException("Not supported yet.");
+        //_serverCommunication.makeTable(_username);
+       
+        CC.AddTable(tid);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -114,7 +112,7 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void oppMove(int fr, int fc, int tr, int tc) {/////////////////////////////////////////////
-        _serverCommunication.move(fr, fc, tr, tc);
+        //_serverCommunication.move(fr, fc, tr, tc);
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -140,20 +138,16 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void tableList(int[] tids) {/////////////////////////////
-        System.out.println("The current Tables already created: ");
         for( int t = 0; t < tids.length; t++){
-            System.out.println(tids[t]);
+           CC.AddTable(tids[t]);
         }
-        //System.out.println("WOOOO");
-        
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void yourTurn() {/////////////////////////////////////////////
-        int fr = 0, fc = 0, tr = 0, tc = 0;
+        //int fr = 0, fc = 0, tr = 0, tc = 0;
         
-        _serverCommunication.move(_username, fr, fc, tr, tc);
+        //_serverCommunication.move(_username, fr, fc, tr, tc);
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -238,4 +232,7 @@ public class CheckersClient implements CheckersClientInterface{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    public void createTable(){
+        _serverCommunication.makeTable(_username);
+    }
 }

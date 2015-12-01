@@ -1,6 +1,8 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
@@ -24,17 +26,32 @@ public class MessagesMenu extends javax.swing.JPanel {
      */
     public MessagesMenu() {
         initComponents();
-        
+    
         PublicMsgBtn.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     CC.SendPublicMsg(PublicMsgTxt.getText());
-                    //PublicMsgForum.setText(CheckersController.PublicMsgs);
-                    //Update();
+                    PublicMsgTxt.setText("");
                 } });
+        PrivateMsgBtn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    CC.SendPrivateMsg((String)UsersList.getSelectedValue(), PrivateMsgTxt.getText());
+                    String tempMsg = CC.PrivateMsgs.get(UsersList.getSelectedValue());
+                    tempMsg += CC.client._username + " : " + PrivateMsgTxt.getText() + "\n";
+                    CC.PrivateMsgs.put((String)UsersList.getSelectedValue(), tempMsg);
+                    Update();
+                    PrivateMsgTxt.setText("");
+                } });
+        UsersList.addMouseListener(new MouseAdapter(){
+            
+            @Override
+            public void mousePressed(MouseEvent e){
+                PrivateMsgForum.setText(CheckersController.PrivateMsgs.get(UsersList.getSelectedValue()));
+            }
+        });
         Update();
     }
     public static void Update(){
-        System.out.println(CheckersController.PublicMsgs);
+        PrivateMsgForum.setText(CheckersController.PrivateMsgs.get(UsersList.getSelectedValue()));
         PublicMsgForum.setText(CheckersController.PublicMsgs);//CheckersController.PublicMsgs);
         //UsersList.clearSelection();
         userList.clear();

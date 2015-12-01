@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class CheckersController {
     private static MainMenu MM = new MainMenu();
-    private static CheckersClient client;
+    public static CheckersClient client;
     public static String PublicMsgs = "";
     public static Map<String, String> PrivateMsgs = new HashMap<>();
     public static ArrayList tableList = new ArrayList();
@@ -38,16 +38,27 @@ public class CheckersController {
     public void AddMessageFrame(){
         MM.CreateMessageFrame();
     }
-    public void SendPublicMsg(String msg){
-        //client.newMsg(client._username, msg, false);
+     public void SendPublicMsg(String msg) {
         client._serverCommunication.sendMsg_All(msg);
-        
     }
-    public void UpdatePublicForum(String user, String msg){
-        PublicMsgs += user + " : "+ msg + "\n";
+
+    public void UpdatePublicForum(String user, String msg) {
+        PublicMsgs += user + " : " + msg + "\n";
         MM.UpdateMessages();
     }
-    
+
+    public void SendPrivateMsg(String user, String msg) {
+        client._serverCommunication.sendMsg(user, msg);
+    }
+
+    public void UpdatePrivateForum(String user, String msg) {
+        if (!user.equals(client._username)) {
+            String tempMsg = PrivateMsgs.get(user);
+            tempMsg += user + " : " + msg + "\n";
+            PrivateMsgs.put(user, tempMsg);
+            MM.UpdateMessages();
+        }
+    }
     public void AddClient(String uname){
         PrivateMsgs.put(uname, "");
         MM.UpdateMessages();

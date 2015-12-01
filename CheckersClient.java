@@ -35,7 +35,7 @@ public class CheckersClient implements CheckersClientInterface{
     @Override
     public void connectionOK() {
         
-        _serverCommunication.connectToServer("192.168.56.1", _username);
+        _serverCommunication.connectToServer("130.108.238.136", _username);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class CheckersClient implements CheckersClientInterface{
             CC.UpdatePublicForum(user, msg);
         }
         else{//Private Msg
-            
+            CC.UpdatePrivateForum(user, msg);
         }
         
        // throw new UnsupportedOperationException("Not supported yet.");

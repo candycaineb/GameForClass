@@ -32,13 +32,19 @@ public class MainScreen extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     CC.CreateTable();
                 } });
+        joinTblBtn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    int i = jList2.getSelectedIndex();
+                    CC.JoinTable((int)CheckersController.tableList.get(i));
+                } });
     }
     public void Update(){
         tableList.clear();
-      //  System.out.println("HMM");
-        for (int t=0; t<CheckersController.tableList.size(); t++){ 
-            
-            tableList.addElement(CheckersController.tableList.get(t));
+        
+        for (int t=0; t<CheckersController.tableList.size(); t++){
+            int n = CheckersController.PlayersOnTbl.get((int)CheckersController.tableList.get(t)).size();
+            tableList.addElement(CheckersController.tableList.get(t) + 
+                    " ("+n+"/2)");
         }
     }
     /**
@@ -168,7 +174,18 @@ public class MainScreen extends javax.swing.JFrame {
     
     
     
-    
+     // Variables declaration - do not modify
+    private javax.swing.JButton createTblBtn;
+    private static javax.swing.JList jList2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton joinTblBtn;
+    private java.awt.Label label2;
+    private java.awt.Label label4;
+    private javax.swing.JButton obsTblBtn;
+    private javax.swing.JButton openMsgBtn;
+    private javax.swing.JButton playCompBtn;
+    // End of variables declaration
+/*   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createTblBtn;
     private javax.swing.JList jList2;
@@ -180,5 +197,5 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JButton openMsgBtn;
     private javax.swing.JButton playCompBtn;
     // End of variables declaration//GEN-END:variables
-
+*/
  }

@@ -8,11 +8,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 class MainMenu {
 
     static MessagesMenu MessageMenu;
     static MainScreen mainMenu;
+    static  CheckerBoard board;
 	MainMenu(){
      
         }
@@ -20,6 +22,9 @@ class MainMenu {
             mainMenu = new MainScreen();//JFrame("Checkers Main Menu")
             mainMenu.setResizable(false);
             mainMenu.setVisible(true);  
+        }
+        public void SetMainMenuVisible(boolean b){
+            mainMenu.setVisible(b); 
         }
         public void CreateMessageFrame(){
             if (MessageMenu != null && MessageMenu.isVisible() == true)
@@ -30,6 +35,18 @@ class MainMenu {
             f.pack();
             f.setResizable(false);
             f.setVisible(true);
+            
+        }
+        public void CreateCheckersBoard(){
+            board = new CheckerBoard();
+            board.setVisible(true);
+        }
+        public void UpdateCheckersBoard(){
+            board.Update();
+        }
+        public void SetCheckersBoardVisible(boolean b){
+           // board.getTopLevelAncestor().setVisible(b);
+            board.SetVisible(b);
         }
         public void UpdateMessages(){
             if (MessageMenu != null){

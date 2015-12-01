@@ -22,7 +22,7 @@ public class Main {
        CC.SetClient(_checkersClient);
         SetupClient();
      ////CREATE GUI
-       // CheckerBoard board = new CheckerBoard();
+        //CheckerBoard board = new CheckerBoard();
 
     }
     public static void SetupClient()

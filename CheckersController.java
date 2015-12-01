@@ -31,8 +31,13 @@ public class CheckersController {
         MM.CreateMessageFrame();
     }
     public void SendPublicMsg(String msg){
-        client.newMsg(client._username, msg, false);
-        PublicMsgs += client._username + " : "+ msg + "\n";
+        //client.newMsg(client._username, msg, false);
+        client._serverCommunication.sendMsg_All(msg);
+        
+    }
+    public void UpdatePublicForum(String user, String msg){
+        PublicMsgs += user + " : "+ msg + "\n";
+        MM.UpdateMessages();
     }
     public void AddClient(String uname){
         PrivateMsgs.put(uname, "");

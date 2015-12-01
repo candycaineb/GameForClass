@@ -18,7 +18,7 @@ import javax.swing.JList;
  */
 public class MessagesMenu extends javax.swing.JPanel {
    private static CheckersController CC = new CheckersController(); 
-   private DefaultListModel userList = new DefaultListModel();
+   private static DefaultListModel userList = new DefaultListModel();
     /**
      * Creates new form MessagesMenu
      */
@@ -28,12 +28,14 @@ public class MessagesMenu extends javax.swing.JPanel {
         PublicMsgBtn.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     CC.SendPublicMsg(PublicMsgTxt.getText());
-                    PublicMsgForum.setText(CheckersController.PublicMsgs);
+                    //PublicMsgForum.setText(CheckersController.PublicMsgs);
+                    //Update();
                 } });
         Update();
     }
-    public void Update(){
-        PublicMsgForum.setText(CheckersController.PublicMsgs);
+    public static void Update(){
+        System.out.println(CheckersController.PublicMsgs);
+        PublicMsgForum.setText(CheckersController.PublicMsgs);//CheckersController.PublicMsgs);
         //UsersList.clearSelection();
         userList.clear();
         Set s = CheckersController.PrivateMsgs.keySet();
@@ -169,7 +171,20 @@ public class MessagesMenu extends javax.swing.JPanel {
     private void PrivateMsgTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrivateMsgTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PrivateMsgTxtActionPerformed
-
+private javax.swing.JButton PrivateMsgBtn;
+    private static javax.swing.JTextArea PrivateMsgForum;
+    private javax.swing.JTextField PrivateMsgTxt;
+    private javax.swing.JButton PublicMsgBtn;
+    private static javax.swing.JTextArea PublicMsgForum;
+    private static javax.swing.JTextField PublicMsgTxt;
+    private static javax.swing.JList UsersList;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private java.awt.Label label1;
+    private java.awt.Label label3;
+    private java.awt.Label label4;
+    /*
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PrivateMsgBtn;
     private javax.swing.JTextArea PrivateMsgForum;
@@ -185,4 +200,5 @@ public class MessagesMenu extends javax.swing.JPanel {
     private java.awt.Label label3;
     private java.awt.Label label4;
     // End of variables declaration//GEN-END:variables
+*/
 }

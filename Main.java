@@ -11,7 +11,7 @@
  */
 public class Main {
     private static CheckersClient _checkersClient;
-    private ServerCommunicator _serverCommunication;
+    //private ServerCommunicator _serverCommunication;
     private static MainMenu _menu = new MainMenu();
     private static CheckersController CC = new CheckersController();
     

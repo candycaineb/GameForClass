@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author Caine
  */
 public class CheckersClient implements CheckersClientInterface{
-    private ServerCommunicator _serverCommunication;
+    public ServerCommunicator _serverCommunication;
     public String _username;
 
     private ArrayList<String> _users = new ArrayList<>();
@@ -48,7 +48,8 @@ public class CheckersClient implements CheckersClientInterface{
     @Override
     public void newMsg(String user, String msg, boolean pm) {
         if (!pm){
-          _serverCommunication.sendMsg_All(msg);//if pm = false
+          //_serverCommunication.sendMsg_All(msg);//if pm = false
+            CC.UpdatePublicForum(user, msg);
         }
         else{//Private Msg
             

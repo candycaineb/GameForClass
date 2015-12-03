@@ -55,7 +55,6 @@ public class CheckersClient implements CheckersClientInterface{
     @Override
     public void newMsg(String user, String msg, boolean pm) {
         if (!pm){
-          //_serverCommunication.sendMsg_All(msg);//if pm = false
             CC.UpdatePublicForum(user, msg);
         }
         else{//Private Msg
@@ -92,7 +91,7 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void newTable(int tid) {///////////////////////////////////////////////
-        //_serverCommunication.makeTable(_username);
+        _serverCommunication.makeTable(_username);
         System.out.println("New table has been created id: " + tid);
         CC.AddTable(tid);
         //throw new UnsupportedOperationException("Not supported yet.");
@@ -102,7 +101,6 @@ public class CheckersClient implements CheckersClientInterface{
     public void joinedTable(int tid) {///////////////////////////////////////////////
         System.out.println("joinedTable " + tid);
         CheckersController.atTable = tid;
-        
     }
 
     @Override
@@ -191,17 +189,18 @@ public class CheckersClient implements CheckersClientInterface{
         CheckersController.yourTurn = true;
         MM.UpdateCheckersBoard();
         System.out.println("Your Turn");
-       
     }
 
     @Override
     public void nowObserving(int tid) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        MM.observation(tid, true, _username);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void stoppedObserving(int tid) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        MM.observation(tid, false, _username);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -271,11 +270,13 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void errorInLobby() {
+        System.out.println("error in lobby");
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void badMessage() {
+        System.out.println("bad message");
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -287,6 +288,7 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void notInLobby() {
+        System.out.println("not in lobby");
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

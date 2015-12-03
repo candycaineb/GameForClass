@@ -194,7 +194,7 @@ private javax.swing.JButton PrivateMsgBtn;
     private javax.swing.JButton PublicMsgBtn;
     private static javax.swing.JTextArea PublicMsgForum;
     private static javax.swing.JTextField PublicMsgTxt;
-    private static javax.swing.JList UsersList;
+    public static javax.swing.JList UsersList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -22,7 +22,7 @@ public class CheckerBoard extends JPanel {
     private JPanel messageContainer = new JPanel();
     private JPanel overLordContainer = new JPanel();
 
-    private JTextArea observerArea = new JTextArea("Observers Pane", 20, 10);
+    public JTextArea observerArea = new JTextArea("Observers Pane", 20, 10);
     private final int numberOfSquaresInRow = 8;
     private static JPanel[][] gameTiles;
     private int checkerBoardHeight, checkerBoardWidth;

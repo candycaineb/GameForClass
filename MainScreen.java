@@ -35,8 +35,18 @@ public class MainScreen extends javax.swing.JFrame {
         joinTblBtn.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     int i = jList2.getSelectedIndex();
+                    System.out.println(i);
                     CC.JoinTable((int)CheckersController.tableList.get(i));
                 } });
+        obsTblBtn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    int i = jList2.getSelectedIndex();
+                    System.out.println("here");
+                    System.out.println(i);
+                    CC.ObserveTbl((int)CheckersController.tableList.get(i));
+                    
+                } });
+        
     }
     public void Update(){
         tableList.clear();
@@ -175,7 +185,7 @@ public class MainScreen extends javax.swing.JFrame {
     
      // Variables declaration - do not modify
     private javax.swing.JButton createTblBtn;
-    private static javax.swing.JList jList2;
+    public static javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton joinTblBtn;
     private java.awt.Label label2;

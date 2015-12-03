@@ -28,6 +28,7 @@ public class CheckersController {
     public static String checkerColor = "";
     public static int _fromRow = -1;
     public static int _fromCol = -1;
+    public static int tid = -1;
     
     CheckersController(){
         Reset();
@@ -94,10 +95,17 @@ public class CheckersController {
     
     public void LeaveTable(){
         client._serverCommunication.leaveTable(client._username);
+        if(tid != -1){
+            client._serverCommunication.stopObserving(PublicMsgs, tid);
+        }
     }
     public void JoinTable(int tid){
         client._serverCommunication.joinTable(client._username, tid);
        // client._serverCommunication.getTblStatus(client._username, tid);
+    }
+    public void ObserveTbl(int tid){
+        this.tid = tid;
+        client._serverCommunication.observeTable(client._username, tid);
     }
     public void UpdateBoardState(byte[][] board){
         for (int t=0; t < board.length; t++){
@@ -134,4 +142,5 @@ public class CheckersController {
             _fromCol = -1;
         }
     }
+    
 }

@@ -1,9 +1,11 @@
 
+import AI.Checkers;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import javax.swing.JFrame;
 
 /*
  * To change this template, choose Tools | Templates
@@ -32,6 +34,17 @@ public class CheckersController {
     CheckersController(){
         Reset();
     }
+    public void StartAIGame(){
+        Checkers c = new Checkers();
+        c.init();
+        JFrame f = new JFrame("End Results");
+
+        f.add(c);
+        f.setSize(400,300);
+        f.setResizable(false);
+        f.setVisible(true);
+    }
+    
     public void SetClient(CheckersClient c){
         client = c;
     }
@@ -114,7 +127,7 @@ public class CheckersController {
     }
     
     public void YourTurn(int row, int col){
-        if (_fromRow == -1 || _fromCol == -1){
+        if ((_fromRow == -1 || _fromCol == -1) && boardState[row][col] != 0){
             _fromRow = row;
             _fromCol = col;
         }else{

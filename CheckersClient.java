@@ -35,7 +35,7 @@ public class CheckersClient implements CheckersClientInterface{
     @Override
     public void connectionOK() {
         
-        _serverCommunication.connectToServer("192.168.56.1", _username);
+        _serverCommunication.connectToServer("130.108.28.165", _username);
     }
 
     @Override

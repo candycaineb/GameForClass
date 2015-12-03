@@ -37,6 +37,10 @@ public class MainScreen extends javax.swing.JFrame {
                     int i = jList2.getSelectedIndex();
                     CC.JoinTable((int)CheckersController.tableList.get(i));
                 } });
+        playCompBtn.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e) {
+                    CC.StartAIGame();
+                } });
     }
     public void Update(){
         tableList.clear();

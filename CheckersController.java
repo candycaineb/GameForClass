@@ -18,7 +18,7 @@ import javax.swing.JFrame;
  */
 public class CheckersController {
     private static MainMenu MM = new MainMenu();
-    private static CheckersClient client;
+    public static CheckersClient client;
     public static String PublicMsgs = "";
     public static Map<String, String> PrivateMsgs = new HashMap<>();
     public static ArrayList tableList = new ArrayList();
@@ -30,6 +30,7 @@ public class CheckersController {
     public static String checkerColor = "";
     public static int _fromRow = -1;
     public static int _fromCol = -1;
+    public static int tid = -1;
     
     CheckersController(){
         Reset();
@@ -60,7 +61,18 @@ public class CheckersController {
         PublicMsgs += user + " : "+ msg + "\n";
         MM.UpdateMessages();
     }
-    
+    public void SendPrivateMsg(String user, String msg) {
+        client._serverCommunication.sendMsg(user, msg);
+    }
+
+    public void UpdatePrivateForum(String user, String msg) {
+        if (!user.equals(client._username)) {
+            String tempMsg = PrivateMsgs.get(user);
+            tempMsg += user + " : " + msg + "\n";
+            PrivateMsgs.put(user, tempMsg);
+            MM.UpdateMessages();
+        }
+    }
     public void AddClient(String uname){
         PrivateMsgs.put(uname, "");
         MM.UpdateMessages();
@@ -96,10 +108,17 @@ public class CheckersController {
     
     public void LeaveTable(){
         client._serverCommunication.leaveTable(client._username);
+        if(tid != -1){
+            client._serverCommunication.stopObserving(PublicMsgs, tid);
+        }
     }
     public void JoinTable(int tid){
         client._serverCommunication.joinTable(client._username, tid);
        // client._serverCommunication.getTblStatus(client._username, tid);
+    }
+    public void ObserveTbl(int tid){
+        this.tid = tid;
+        client._serverCommunication.observeTable(client._username, tid);
     }
     public void UpdateBoardState(byte[][] board){
         for (int t=0; t < board.length; t++){

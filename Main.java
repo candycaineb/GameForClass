@@ -17,7 +17,7 @@ public class Main {
     
     public static void main(String[] args) { 
         _menu.CreateMainMenu();
-       _checkersClient = new CheckersClient("Caine");
+       _checkersClient = new CheckersClient("Matthew");
 
        CC.SetClient(_checkersClient);
         SetupClient();

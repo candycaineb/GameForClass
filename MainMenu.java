@@ -11,9 +11,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 class MainMenu {
-
-    static MessagesMenu MessageMenu;
-    static MainScreen mainMenu;
+///Caines testaroo!
+    public static MessagesMenu MessageMenu;
+    public static MainScreen mainMenu;
     static  CheckerBoard board;
 	MainMenu(){
      
@@ -56,5 +56,14 @@ class MainMenu {
         public void UpdateMainMenu(){
            mainMenu.Update();   
         }
-        
+        public void observation(int tid, boolean b, String user){
+            if(b==true){
+                CreateCheckersBoard();
+                SetCheckersBoardVisible(b);
+                board.observerArea.setText(user+ "is now watching table " + tid);
+            } else {
+                SetCheckersBoardVisible(b);
+                board.observerArea.setText(user + "has stopped watching table " + tid);
+            }
+        }  
 }

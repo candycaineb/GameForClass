@@ -1,4 +1,5 @@
 
+
 import Interfaces.CheckersClientInterface;
 import Interfaces.ServerInterface;
 import java.awt.Font;
@@ -55,11 +56,10 @@ public class CheckersClient implements CheckersClientInterface{
     @Override
     public void newMsg(String user, String msg, boolean pm) {
         if (!pm){
-          //_serverCommunication.sendMsg_All(msg);//if pm = false
             CC.UpdatePublicForum(user, msg);
         }
         else{//Private Msg
-            
+            CC.UpdatePrivateForum(user, msg);
         }
         
        // throw new UnsupportedOperationException("Not supported yet.");
@@ -196,12 +196,14 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void nowObserving(int tid) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        MM.observation(tid, true, _username);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void stoppedObserving(int tid) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        MM.observation(tid, false, _username);
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

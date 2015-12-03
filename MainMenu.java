@@ -21,7 +21,7 @@ class MainMenu {
         public void CreateMainMenu(){
             mainMenu = new MainScreen();//JFrame("Checkers Main Menu")
             mainMenu.setResizable(false);
-            mainMenu.setVisible(true);  
+           // mainMenu.setVisible(true);  
         }
         public void SetMainMenuVisible(boolean b){
             mainMenu.setVisible(b); 
@@ -60,10 +60,11 @@ class MainMenu {
             if(b==true){
                 CreateCheckersBoard();
                 SetCheckersBoardVisible(b);
-                board.observerArea.setText(user+ "is now watching table " + tid);
+                //board.observerArea.setText(user+"\n");
             } else {
                 SetCheckersBoardVisible(b);
-                board.observerArea.setText(user + "has stopped watching table " + tid);
+                CheckersController.tid = -1;
+               // board.observerArea.setText(user + " has stopped\nwatching table " + tid + "\n");
             }
         }  
 }

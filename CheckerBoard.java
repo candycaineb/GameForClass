@@ -95,7 +95,13 @@ public class CheckerBoard extends JPanel {
     
     public void Update(){
         //TODO: Update observer panel
-        int tid = CheckersController.atTable;
+        int tid;
+        if (CheckersController.tid == -1) {
+            tid = CheckersController.atTable;
+        }
+        else {
+            tid = CheckersController.tid;
+        }
         ArrayList<String> players = CheckersController.PlayersOnTbl.get(tid);
         String p1 = "",p2 = "";
        if ( players.size()>= 1){
@@ -105,17 +111,24 @@ public class CheckerBoard extends JPanel {
            p2 = players.get(1);
        }
        String vsLblText = "Table ID: " + tid + " Black: " + p1 + " vs Red: " + p2;
-        moveLbl.setText("Waiting to start Game");
+       if (CheckersController.tid == -1) {
+            moveLbl.setText("Waiting to start Game");
+        }else{
+            moveLbl.setText("Observing Game");
+       }
         
-        if (CheckersController.gameReady){
-            if (CheckersController.yourTurn){
-                vsLblText += " ... Your Turn!";
-                moveLbl.setText("Select a checker to move it");
-            }else{
-                vsLblText += " ... Opponents Turn!";
-                moveLbl.setText("");
+        if (CheckersController.gameReady || CheckersController.tid != -1){
+            if (CheckersController.tid == -1){
+                if (CheckersController.yourTurn){
+                    vsLblText += " ... Your Turn!";
+                    moveLbl.setText("Select a checker to move it");
+                }else{
+                    vsLblText += " ... Opponents Turn!";
+                    moveLbl.setText("");
+                }
+                vsLblText += " You are: "+CheckersController.checkerColor;
             }
-            vsLblText += " You are: "+CheckersController.checkerColor;
+            
             boardContainer.removeAll();
             for (int t = 0; t<8; t++){
                 for (int s = 0; s < 8; s++){
@@ -143,28 +156,30 @@ public class CheckerBoard extends JPanel {
                         piece = new JLabel("", redKing, JLabel.CENTER);
                         boardTile.add(piece);
                     }
-                    boardTile.addMouseListener(new MouseListener() {
-                    @Override
-                    public void mouseClicked(MouseEvent mouseEvent) {
-                        if (CheckersController.yourTurn){
-                            CC.YourTurn(row, column);
-                            if (CheckersController._fromCol == -1){
-                                moveLbl.setText("Select a checker to move it");
-                            }else{
-                               moveLbl.setText(" Select an empty space to move your checker");
+                    if (CheckersController.tid == -1){
+                        boardTile.addMouseListener(new MouseListener() {
+                        @Override
+                        public void mouseClicked(MouseEvent mouseEvent) {
+                            if (CheckersController.yourTurn){
+                                CC.YourTurn(row, column);
+                                if (CheckersController._fromCol == -1){
+                                    moveLbl.setText("Select a checker to move it");
+                                }else{
+                                   moveLbl.setText(" Select an empty space to move your checker");
+                                }
                             }
                         }
-                    }
 
+                            @Override
+                        public void mousePressed(MouseEvent mouseEvent) {}
                         @Override
-                    public void mousePressed(MouseEvent mouseEvent) {}
-                    @Override
-                    public void mouseReleased(MouseEvent mouseEvent) {}
-                    @Override
-                    public void mouseEntered(MouseEvent mouseEvent) {}
-                    @Override
-                    public void mouseExited(MouseEvent mouseEvent) {}
-                    });
+                        public void mouseReleased(MouseEvent mouseEvent) {}
+                        @Override
+                        public void mouseEntered(MouseEvent mouseEvent) {}
+                        @Override
+                        public void mouseExited(MouseEvent mouseEvent) {}
+                        });
+                    }
                     boardTile.setBackground(tileColor);
                     gameTiles[t][s] = boardTile;
                     boardContainer.add(boardTile);
@@ -173,6 +188,7 @@ public class CheckerBoard extends JPanel {
                 
         }
         vsLbl.setText(vsLblText);
+        System.out.println("UPDATING BOARD....");
     }
     
     public void makeCheckerBoard(){
@@ -251,7 +267,7 @@ public class CheckerBoard extends JPanel {
         boardContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         observerArea.setEditable(false);
         overLordContainer.add(moveLbl, BorderLayout.NORTH);
-        observerContainer.add(observerArea);
+       // observerContainer.add(observerArea);
         
         messageBoxContainer.add(QuitBtn);
         messageContainer.add(vsLbl);

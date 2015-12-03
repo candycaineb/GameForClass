@@ -25,7 +25,7 @@ public class CheckersClient implements CheckersClientInterface{
     
     private ArrayList<String> _users = new ArrayList<>();
     private static CheckersController CC = new CheckersController();
-
+    public static boolean loginFail = true;
     
     CheckersClient(String uname){
         _username = uname;
@@ -35,12 +35,13 @@ public class CheckersClient implements CheckersClientInterface{
     
     @Override
     public void connectionOK() {
-        
+        //
         _serverCommunication.connectToServer("130.108.28.165", _username);
     }
 
     @Override
     public void youInLobby() {
+        loginFail = false;
         System.out.println("Congratulations, you have just joined the lobby");
         MM.SetMainMenuVisible(true);
         MM.SetCheckersBoardVisible(false);
@@ -203,6 +204,7 @@ public class CheckersClient implements CheckersClientInterface{
     @Override
     public void stoppedObserving(int tid) {
         MM.observation(tid, false, _username);
+        CheckersController.tid = -1;
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -213,13 +215,22 @@ public class CheckersClient implements CheckersClientInterface{
 
     @Override
     public void nameInUseError() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JFrame f = new JFrame("Checkers");
+        JLabel l = new JLabel("That name is in use. Please choose a different name");
+        l.setFont(new Font("Serif",  Font.BOLD, 28));
+        f.add(l);
+        f.pack();
+        f.setVisible(true);
     }
 
     @Override
     public void nameIllegal() {
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+        JFrame f = new JFrame("Checkers");
+        JLabel l = new JLabel("That name is Illegal. Please choose a different name");
+        l.setFont(new Font("Serif",  Font.BOLD, 28));
+        f.add(l);
+        f.pack();
+        f.setVisible(true);
     }
 
     @Override

@@ -34,24 +34,30 @@ public class MessagesMenu extends javax.swing.JPanel {
                 } });
         PrivateMsgBtn.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                    CC.SendPrivateMsg((String)UsersList.getSelectedValue(), PrivateMsgTxt.getText());
-                    String tempMsg = CC.PrivateMsgs.get(UsersList.getSelectedValue());
-                    tempMsg += CC.client._username + " : " + PrivateMsgTxt.getText() + "\n";
-                    CC.PrivateMsgs.put((String)UsersList.getSelectedValue(), tempMsg);
-                    Update();
-                    PrivateMsgTxt.setText("");
+                    if (UsersList.getSelectedValue() != null) {
+                        CC.SendPrivateMsg((String)UsersList.getSelectedValue(), PrivateMsgTxt.getText());
+                        String tempMsg = CheckersController.PrivateMsgs.get((String)UsersList.getSelectedValue());
+                        tempMsg += CheckersController.client._username + " : " + PrivateMsgTxt.getText() + "\n";
+                        CheckersController.PrivateMsgs.put((String)UsersList.getSelectedValue(), tempMsg);
+                        Update();
+                        PrivateMsgTxt.setText("");
+                    }
                 } });
         UsersList.addMouseListener(new MouseAdapter(){
             
             @Override
             public void mousePressed(MouseEvent e){
-                PrivateMsgForum.setText(CheckersController.PrivateMsgs.get(UsersList.getSelectedValue()));
+                if (UsersList.getSelectedValue() != null) {
+                PrivateMsgForum.setText(CheckersController.PrivateMsgs.get((String)UsersList.getSelectedValue()));
+                }
             }
         });
         Update();
     }
     public static void Update(){
-        PrivateMsgForum.setText(CheckersController.PrivateMsgs.get(UsersList.getSelectedValue()));
+        if (UsersList.getSelectedValue() != null) {
+            PrivateMsgForum.setText(CheckersController.PrivateMsgs.get((String)UsersList.getSelectedValue()));
+        }
         PublicMsgForum.setText(CheckersController.PublicMsgs);//CheckersController.PublicMsgs);
         //UsersList.clearSelection();
         userList.clear();

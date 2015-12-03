@@ -23,6 +23,7 @@ public class CheckersController {
     public static Map<String, String> PrivateMsgs = new HashMap<>();
     public static ArrayList tableList = new ArrayList();
     public static Map<Integer, ArrayList<String>> PlayersOnTbl = new HashMap<>();
+    public static Map<Integer, String> ObserversOnTbl = new HashMap<>();
     public static int atTable = 0;
     public static byte[][] boardState;
     public static boolean gameReady = false;
@@ -98,7 +99,7 @@ public class CheckersController {
         if (!"-1".equals(red)){
             nms.add(red);
         } 
-        if (nms.size() == 2){
+        if (nms.size() == 2 && CheckersController.tid == -1){
             client._serverCommunication.playerReady(client._username);}
             
         PlayersOnTbl.put(tid, nms);
@@ -117,7 +118,7 @@ public class CheckersController {
        // client._serverCommunication.getTblStatus(client._username, tid);
     }
     public void ObserveTbl(int tid){
-        this.tid = tid;
+        CheckersController.tid = tid;
         client._serverCommunication.observeTable(client._username, tid);
     }
     public void UpdateBoardState(byte[][] board){
